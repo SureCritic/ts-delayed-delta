@@ -1,4 +1,4 @@
-require 'delayed_job'
+require 'delayed'
 require 'thinking_sphinx'
 
 # Delayed Deltas for Thinking Sphinx, using Delayed Job.
@@ -42,7 +42,7 @@ class ThinkingSphinx::Deltas::DelayedDelta <
   end
 
   def self.job_options
-    if Gem.loaded_specs['delayed_job'].version.to_s.match(/^2\.0\./)
+    if Gem.loaded_specs['delayed'].version.to_s.match(/^2\.0\./)
       # Fallback for compatibility with old release 2.0.x of DJ
       # Only priority option is supported for these versions
       ThinkingSphinx::Configuration.instance.delayed_job_priority || 0
