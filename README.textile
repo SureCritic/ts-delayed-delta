@@ -1,5 +1,8 @@
 h1. Delayed Deltas for Thinking Sphinx
 
+h2. SureCritic Fork
+We've forked this to work with the `delayed` gem rather than `delayed_job`.
+
 h2. Installation
 
 This version works with Thinking Sphinx v1.5.0, v2.1.0 and v3.x.
