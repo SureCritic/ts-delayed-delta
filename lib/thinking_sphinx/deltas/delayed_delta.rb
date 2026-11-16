@@ -41,17 +41,13 @@ class ThinkingSphinx::Deltas::DelayedDelta <
     Delayed::Job.enqueue object, job_options
   end
 
+  # Always an options hash. The `delayed` gem (2.x) reads only hash options, so
+  # a bare Integer priority would drop the queue and land jobs in `default`.
   def self.job_options
-    if Gem.loaded_specs['delayed'].version.to_s.match(/^2\.0\./)
-      # Fallback for compatibility with old release 2.0.x of DJ
-      # Only priority option is supported for these versions
-      ThinkingSphinx::Configuration.instance.delayed_job_priority || 0
-    else
-      {
-        :priority => job_option(:delayed_job_priority, 0),
-        :queue    => job_option(:delayed_job_queue)
-      }
-    end
+    {
+      :priority => job_option(:delayed_job_priority, 0),
+      :queue    => job_option(:delayed_job_queue)
+    }
   end
 
   def self.job_option(setting, default = nil)
